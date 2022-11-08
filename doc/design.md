@@ -29,5 +29,4 @@
     * Output: Pre processed sets of training and testing images.
 
 ## Interaction diagram
-![Interaction Diagram](doc/Interaction_diagram.jpg)
-
+<img src="Interaction_diagram.jpg" alt="Alt text" title="Interaction Diagram">
