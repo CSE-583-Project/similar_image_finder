@@ -27,3 +27,7 @@
     * What it does: Applies pre processing to new and uploaded data. Creates training and test sets for the machine learning model. Machine learning engineer can make changes to this according to the use case.
     * Input: Images and features from the database.
     * Output: Pre processed sets of training and testing images.
+
+## Interaction diagram
+![Interaction Diagram](doc/Interaction_diagram.jpg)
+
