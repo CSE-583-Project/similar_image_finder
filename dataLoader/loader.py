@@ -5,6 +5,7 @@ from PIL import Image
 from torch.utils.data import random_split
 from torch.utils.data import DataLoader
 import json
+from torchvision import transforms
 
 #open csv from data folder
 class_map = {"Tops": 0,
@@ -61,18 +62,21 @@ class Dataset(torch.utils.data.Dataset):
                                 "Images",
                                 "images_with_product_ids",
                                 self.df.iloc[idx]["Image"])
-        img = Image.open(img_path)
+        img = Image.open(img_path).convert("RGB")
         img_transformed = self.transform(img)
+        img.close()
         
         class_name = self.df.iloc[idx]["ProductType"]
         label = class_map[class_name]
             
-        return img_transformed,label
+        return img_transformed, label
 
 class LoadData:
     def __init__(self, dataset, json_path) -> None:
         self.dataset = dataset
-        self.json_data = json.load(open(json_path))
+        file = open(json_path)
+        self.json_data = json.load(file)
+        file.close()
         
 
     def get_data_loaders(self):
@@ -87,10 +91,14 @@ class LoadData:
         self.val_batch_size = self.json_data["val_batch_size"]
         self.test_batch_size = self.json_data["test_batch_size"]
 
-        self.lengths = [self.train_size, self.val_size, self.test_size]
+        train_length = int(len(self.dataset) * self.train_size)
+        val_length = int(len(self.dataset) * self.val_size)
+        test_length = len(self.dataset) - train_length - val_length
+
+        self.lengths = [train_length, val_length, test_length]
         train_data, val_data, test_data = random_split(self.dataset,
                                                        lengths= self.lengths)
-                                                       
+
         train_loader = DataLoader(dataset = train_data,
                                   batch_size=self.train_batch_size,
                                   shuffle=True)
