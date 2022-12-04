@@ -11,7 +11,7 @@ class TestLoader(unittest.TestCase):
     """Class to test Data Loader and Dataset modules.
     """
     def test_dataset_length(self):
-        csv_file_path = r"data\fashion.csv"
+        csv_file_path = r"data/fashion.csv"
         data_dir = "data"
         image_transforms = transforms.Compose([
         transforms.Resize((224, 224)),
