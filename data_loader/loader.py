@@ -41,18 +41,18 @@ class_map = {"Tops": 0,
              "Heels": 30}
 
 class Dataset(torch.utils.data.Dataset):
-    def __init__(self, csv_file, data_dir,transform=None):
-        self.df = pd.read_csv(csv_file)
+    def __init__(self, df, data_dir, transform=None):
+        self.df = df
         self.transform = transform
         self.data_dir = data_dir
         
     #dataset length
     def __len__(self):
         return len(self.df)
-
-    def _get_num_classes(self):
-        return len(self.df["ProductType"].unique())
     
+    def _get_unique_classes(self):
+        return list(self.df["ProductType"].unique())
+
     #load an one of images
     def __getitem__(self,idx):
         #path = data, Category, Gender, Images, images_with_product_ids
@@ -72,40 +72,19 @@ class Dataset(torch.utils.data.Dataset):
         return img_transformed, label
 
 class LoadData:
-    def __init__(self, dataset, json_path) -> None:
+    def __init__(self, dataset, json_path, type_loader) -> None:
         self.dataset = dataset
         file = open(json_path)
         self.json_data = json.load(file)
         file.close()
+        self.type_loader = type_loader
         
 
-    def get_data_loaders(self):
-
-        #dataset sizes
-        self.train_size = self.json_data["train_split"]
-        self.val_size = self.json_data["val_split"]
-        self.test_size = self.json_data["test_split"]
-
+    def get_data_loader(self):
         #batch sizes
-        self.train_batch_size = self.json_data["train_batch_size"]
-        self.val_batch_size = self.json_data["val_batch_size"]
-        self.test_batch_size = self.json_data["test_batch_size"]
+        self.batch_size = self.json_data[self.type_loader+"_batch_size"]
 
-        train_length = int(len(self.dataset) * self.train_size)
-        val_length = int(len(self.dataset) * self.val_size)
-        test_length = len(self.dataset) - train_length - val_length
-
-        self.lengths = [train_length, val_length, test_length]
-        train_data, val_data, test_data = random_split(self.dataset,
-                                                       lengths= self.lengths)
-
-        train_loader = DataLoader(dataset = train_data,
-                                  batch_size=self.train_batch_size,
-                                  shuffle=True)
-        test_loader = DataLoader(dataset = test_data,
-                                 batch_size=self.test_batch_size,
-                                 shuffle=True)
-        val_loader = DataLoader(dataset = val_data,
-                                batch_size=self.val_batch_size,
-                                shuffle=True)
-        return train_loader, val_loader, test_loader
+        loader = DataLoader(dataset = self.dataset,
+                            batch_size=self.batch_size,
+                            shuffle=True)
+        return loader
