@@ -3,7 +3,7 @@ from torchvision import models
 import json
 import tqdm
 
-class ResNet_Model():
+class ResNetModel():
 
     def __init__(self, num_classes):
 
