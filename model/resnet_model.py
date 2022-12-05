@@ -92,6 +92,7 @@ class ResNetModel():
         test_loss /= len(test_loader)
         print('\nTest Loss: {:.4f}, Test Accuracy: {:.2f}%\n'.format(
                 test_loss, 100. * correct / len(test_loader.dataset)))
+        return self.resnet_model
     
     def store_model(self, destination_path):
         

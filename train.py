@@ -5,13 +5,14 @@ from sklearn.model_selection import train_test_split
 import pandas as pd
 import json
 
-def train_model(num_classes, train_loader, val_loader, test_loader):
+def train_model(num_classes, train_loader, val_loader, test_loader, \
+                model_destination_path, backbone_destination_path):
     print("Training Model...")
     model = ResNetModel(num_classes)
     model.train_model(train_config_path, train_loader, val_loader, test_loader)
-    model.store_model()
+    model.store_model(model_destination_path)
     model.generate_model_backbone()
-    model.store_model_backbone()
+    model.store_model_backbone(backbone_destination_path)
 
 def create_datasets(df, json_path, data_dir, train_transforms = None, transforms = None):
     print("Creating Dataset...")
@@ -38,7 +39,7 @@ def create_dataloaders(train_dataset, val_dataset, test_dataset, json_path):
     return train_loader, val_loader, test_loader
 
 if __name__ == "__main__":
-    #add data paths
+    # Add data paths
     train_config_path = "train_config.json"
     csv_file_path = "data/fashion.csv"
     data_dir = "data"
@@ -74,4 +75,5 @@ if __name__ == "__main__":
                                                                test_dataset= test_dataset,
                                                                json_path= train_config_path)
 
-    train_model(num_classes, train_loader, val_loader, test_loader)
+    train_model(num_classes, train_loader, val_loader, test_loader, \
+                model_destination_path, backbone_destination_path)
