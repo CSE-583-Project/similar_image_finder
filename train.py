@@ -47,6 +47,10 @@ if __name__ == "__main__":
     #read necessary files
     df = pd.read_csv(csv_file_path)
 
+    # Destination Path for Model and Backbone
+    model_destination_path = "./model/model.pt"
+    backbone_destination_path = "./model/backbone.pt"
+
     #variables for model
     num_classes = len(df["ProductType"].unique())
 
