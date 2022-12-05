@@ -1,7 +1,7 @@
 import unittest
 import random
-from dataLoader import Dataset
-from dataLoader import LoadData
+from data_loader import Dataset
+from data_loader import LoadData
 
 from torchvision import transforms
 import torchvision
