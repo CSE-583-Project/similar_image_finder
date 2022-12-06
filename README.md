@@ -1,1 +1,2 @@
 Similiar Image Finder
+[![Python Package using Conda](https://github.com/CSE-583-Project/similar_image_finder/actions/workflows/python-package-conda.yml/badge.svg)](https://github.com/CSE-583-Project/similar_image_finder/actions/workflows/python-package-conda.yml)
