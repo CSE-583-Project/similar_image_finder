@@ -7,7 +7,7 @@ class ResNetModel():
 
     def __init__(self, num_classes):
 
-        self.resnet_model = models.resnet50(pretrained=True)
+        self.resnet_model = models.resnet18(pretrained=True)
         num_features = self.resnet_model.fc.in_features
         self.resnet_model.fc = torch.nn.Linear(num_features, num_classes) 
         self.device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
@@ -33,7 +33,7 @@ class ResNetModel():
             self.resnet_model.train()
             with tqdm.tqdm(total=len(iter(train_loader))) as pbar:
                 train_loss, correct = 0, 0
-                for input, target in train_loader:
+                for input, target, _ in train_loader:
                     input, target = input.to(self.device), target.to(self.device)
                     # Calculate training loss on model
                     optimizer.zero_grad()
@@ -56,7 +56,7 @@ class ResNetModel():
             with torch.no_grad():
 
                 val_loss, correct = 0, 0
-                for input, target in val_loader:
+                for input, target, _ in val_loader:
                     input, target = input.to(self.device), target.to(self.device)
                     # Calculate validation loss on model
                     optimizer.zero_grad()
@@ -81,7 +81,7 @@ class ResNetModel():
         test_loss, correct = 0, 0
         self.resnet_model.eval()
         with torch.no_grad():
-            for input, target in test_loader:
+            for input, target, _ in test_loader:
                 input, target = input.to(self.device), target.to(self.device)
                 #Calculate testing loss on model
                 optimizer.zero_grad()
