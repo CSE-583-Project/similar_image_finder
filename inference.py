@@ -45,28 +45,20 @@ def embeddings_loader(all_emb_path = 'all_embeddings.csv'):
         embeddings.append(data[i][1])
     return embeddings, file_paths
 
-def embedding_finder():
+def embedding_finder(img):
     """
     Finding embedding of the input image.
     ARGUMENTS:
-    Later on we can take input the image for which embedding is to be found out.
+    img - Image for which embedding is to be found out.
 
     Returns:
     Embedding of the image for which similar images are to be found.
     """
-    df_t = pd.DataFrame(columns=['ProductId', 'Gender', 'Category', \
-    'SubCategory', 'ProductType', 'Colour', 'Usage', 'ProductTitle', 'Image', 'ImageURL'])
-    # A sample input path.
-    temp = {'ProductId': 42419, 'Gender': 'Girls', 'Category': 'Apparel', 'SubCategory': \
-        '', 'ProductType': '', 'Colour': '', 'Usage': '', 'ProductTitle': '', \
-             'Image': '42419.jpg', 'ImageURL': ''}
-    df_t = df_t.append(temp, ignore_index = True)
-
     image_transforms = transforms.Compose([transforms.Resize((224, 224)),
                                             transforms.ToTensor(),
                                             transforms.Normalize((0.5,), (0.5,))])
 
-    img_transformed = Dataset(df_t, "", image_transforms)
+    img_transformed = Dataset(pd.DataFrame(), "", image_transforms, img)
     load_data_train = LoadData(img_transformed, "", "test")
     data_loader = load_data_train.get_data_loader()
 

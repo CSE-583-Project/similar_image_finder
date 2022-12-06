@@ -45,7 +45,7 @@ class Dataset(torch.utils.data.Dataset):
     """Class Dataset to create the datset for machine learning and
     inferencing.
     """
-    def __init__(self, data_frame, data_dir, transform=None):
+    def __init__(self, data_frame, data_dir, transform=None, img=None):
         """Init function for dataset creation.
         Arguments:
         data_frame (pd.dataframe): dataframe with paths to images and labels.
@@ -57,6 +57,7 @@ class Dataset(torch.utils.data.Dataset):
         self.data_frame = data_frame
         self.transform = transform
         self.data_dir = data_dir
+        self.img = img
 
     #dataset length
     def __len__(self):
@@ -90,15 +91,18 @@ class Dataset(torch.utils.data.Dataset):
         img_path (str): Path where the image is stored.
         """
         #path = data, Category, Gender, Images, images_with_product_ids
-        img_path = os.path.join(self.data_dir,
+        if not self.img:
+            img_path = os.path.join(self.data_dir,
                                 self.data_frame.iloc[idx]["Category"],
                                 self.data_frame.iloc[idx]["Gender"],
                                 "Images",
                                 "images_with_product_ids",
                                 self.data_frame.iloc[idx]["Image"])
-        img = Image.open(img_path).convert("RGB")
-        img_transformed = self.transform(img)
-        img.close()
+            self.img = Image.open(img_path).convert("RGB")
+        else:
+            img_path = ""
+        img_transformed = self.transform(self.img)
+        self.img.close()
 
         class_name = self.data_frame.iloc[idx]["ProductType"]
         label = class_map[class_name]
