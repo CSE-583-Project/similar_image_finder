@@ -8,7 +8,7 @@ from torchvision import transforms
 from data_loader.loader import Dataset, LoadData
 from model.resnet_model import ResNetModel
 
-def train_model(num_classes, train_config_path, train_loader, val_loader, test_loader, \
+def train_model(num_classes, train_config_path, loaders_list, \
                 model_destination_path, backbone_destination_path):
     """Function to train model.
 
@@ -25,6 +25,7 @@ def train_model(num_classes, train_config_path, train_loader, val_loader, test_l
     """
     print("Training Model...")
     model = ResNetModel(num_classes)
+    train_loader, val_loader, test_loader = loaders_list
     model.train_model(train_config_path, train_loader, val_loader, test_loader)
     model.store_model(model_destination_path)
     model.generate_model_backbone()
@@ -82,8 +83,9 @@ def create_dataloaders(train_dataset, val_dataset, test_dataset, json_path):
     val_loader = load_data_val.get_data_loader()
     load_data_test = LoadData(test_dataset, json_path, "test", False)
     test_loader = load_data_test.get_data_loader()
+    loaders_list = train_loader, val_loader, test_loader
 
-    return train_loader, val_loader, test_loader
+    return loaders_list
 
 if __name__ == "__main__":
     # Add data paths
