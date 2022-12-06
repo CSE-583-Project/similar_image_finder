@@ -69,6 +69,9 @@ target/
 # IPython Notebook
 .ipynb_checkpoints
 
+# OS Files
+.DS_Store
+
 # pyenv
 .python-version
 
