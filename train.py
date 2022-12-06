@@ -29,11 +29,11 @@ def create_datasets(df, json_path, data_dir, train_transforms = None, transforms
 
 def create_dataloaders(train_dataset, val_dataset, test_dataset, json_path):
     print("Creating Data Loaders...")
-    load_data_train = LoadData(train_dataset, json_path, "train")
+    load_data_train = LoadData(train_dataset, json_path, "train", False)
     train_loader = load_data_train.get_data_loader()
-    load_data_val = LoadData(val_dataset, json_path, "val")
+    load_data_val = LoadData(val_dataset, json_path, "val", False)
     val_loader = load_data_val.get_data_loader()
-    load_data_test = LoadData(test_dataset, json_path, "test")
+    load_data_test = LoadData(test_dataset, json_path, "test", False)
     test_loader = load_data_test.get_data_loader()
 
     return train_loader, val_loader, test_loader

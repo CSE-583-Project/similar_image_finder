@@ -69,15 +69,18 @@ class Dataset(torch.utils.data.Dataset):
         class_name = self.df.iloc[idx]["ProductType"]
         label = class_map[class_name]
             
-        return img_transformed, label
+        return img_transformed, label, img_path
 
 class LoadData:
-    def __init__(self, dataset, json_path, type_loader) -> None:
+    def __init__(self, dataset, json_path, type_loader, inference, shuffle=True) -> None:
         self.dataset = dataset
-        file = open(json_path)
-        self.json_data = json.load(file)
-        file.close()
+        self.shuffle = shuffle
+        if not inference:
+            file = open(json_path)
+            self.json_data = json.load(file)
+            file.close()
         self.type_loader = type_loader
+
         
 
     def get_data_loader(self):
@@ -86,5 +89,5 @@ class LoadData:
 
         loader = DataLoader(dataset = self.dataset,
                             batch_size=self.batch_size,
-                            shuffle=True)
+                            shuffle=self.shuffle)
         return loader
