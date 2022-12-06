@@ -7,7 +7,7 @@ class ResNetModel():
 
     def __init__(self, num_classes):
 
-        self.resnet_model = models.resnet18(pretrained=True)
+        self.resnet_model = models.resnet50(pretrained=True)
         num_features = self.resnet_model.fc.in_features
         self.resnet_model.fc = torch.nn.Linear(num_features, num_classes) 
         self.device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
