@@ -123,10 +123,10 @@ if __name__ == "__main__":
                                                                transform= image_transforms)
 
     #get loaders
-    train_ldr, val_ldr, test_ldr = create_dataloaders(train_dataset= train_ds,
+    ldr_list = create_dataloaders(train_dataset= train_ds,
                                                                val_dataset= val_ds,
                                                                test_dataset= test_ds,
                                                                json_path= TRAIN_CONFIG_PATH)
 
-    train_model(n_classes, TRAIN_CONFIG_PATH, train_ldr, val_ldr, test_ldr, \
+    train_model(n_classes, TRAIN_CONFIG_PATH, ldr_list, \
                 MODEL_DEST_PATH, BACKBONE_DEST_PATH)
