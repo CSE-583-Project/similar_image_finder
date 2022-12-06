@@ -15,7 +15,7 @@ class TestLoader(unittest.TestCase):
     def test_dataset_length_ds(self):
         """Test function to test the length of the dataset created.
         """
-        csv_file_path = r"data/fashion.csv"
+        csv_file_path = "data/fashion.csv"
         data_dir = "data"
         json_path = "train_config.json"
 
@@ -41,7 +41,7 @@ class TestLoader(unittest.TestCase):
     def test_image_size_ds(self):
         """Test function to check the size of image in the dataset.
         """
-        csv_file_path = r"data/fashion.csv"
+        csv_file_path = "data/fashion.csv"
         data_dir = "data"
         json_path = "train_config.json"
 
