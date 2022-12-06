@@ -160,3 +160,14 @@ class ResNetModel():
         """
 
         torch.save(self.resnet_backbone, destination_path)
+
+
+    def load_state_dict(self, destination_path):
+        """
+        Loading saved model.
+        Arguments:
+        destination_path - Path from which model is to be loaded.
+        Returns:
+        The RESNET model.
+        """
+        return torch.load(destination_path)
