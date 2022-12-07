@@ -5,7 +5,6 @@ fetched from the Firebase database storage.
 
 import csv
 import torch
-import tqdm
 from numpy import dot
 from numpy.linalg import norm
 import pandas as pd
@@ -71,7 +70,7 @@ def embedding_finder(img):
     return embedding
 
 
-def similar_images_finder(img_embedding, all_embeddings, file_paths):
+def cosine_calc(img_embedding, all_embeddings, file_paths):
     """Find cosine similarity with all images in dataset
     and returning the 10 images with most similarity
     ARGUMENTS:
@@ -104,3 +103,18 @@ def similar_images_finder(img_embedding, all_embeddings, file_paths):
         selected_img_paths.append(distances[i][1])
 
     return selected_img_paths
+
+
+def similar_images_finder(img):
+    """
+    Find 10 similar images in order for the given image.
+    ARGUMENTS
+    img - Input image for which similar images are to be found out.
+
+    Returns:
+    similar_img_paths - image paths of 10 most similar images.
+    """
+    all_embeddings, all_file_paths = embeddings_loader('data/all_embeddings.csv')
+    img_embedding = embedding_finder(img)
+    similar_img_paths = cosine_calc(img_embedding, all_embeddings, all_file_paths)
+    return similar_img_paths
