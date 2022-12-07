@@ -8,6 +8,9 @@ import torchvision
 from torchvision import transforms
 from similar_image_finder.train import create_datasets
 from similar_image_finder.train import create_dataloaders
+# from similar_image_finder.inference import embeddings_loader, embedding_finder
+# from similar_image_finder.inference import cosine_calc, similar_images_finder
+
 
 class TestLoader(unittest.TestCase):
     """Class to test Data Loader and Dataset modules.
