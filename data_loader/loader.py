@@ -90,17 +90,6 @@ class Dataset(torch.utils.data.Dataset):
         label (int): Class of the image.
         img_path (str): Path where the image is stored.
         """
-        #path = data, Category, Gender, Images, images_with_product_ids
-        # if not self.img:
-        #     img_path = os.path.join(self.data_dir,
-        #                         self.data_frame.iloc[idx]["Category"],
-        #                         self.data_frame.iloc[idx]["Gender"],
-        #                         "Images",
-        #                         "images_with_product_ids",
-        #                         self.data_frame.iloc[idx]["Image"])
-        #     self.img = Image.open(img_path).convert("RGB")
-        # else:
-        #     img_path = ""
         img_path = os.path.join(self.data_dir,
                                 self.data_frame.iloc[idx]["Category"],
                                 self.data_frame.iloc[idx]["Gender"],

@@ -52,24 +52,23 @@ def embedding_finder(img):
     img - Image for which embedding is to be found out.
 
     Returns:
-    Embedding of the image for which similar images are to be found.
+    embedding - Embedding of the image for which similar images are to be found.
     """
     image_transforms = transforms.Compose([transforms.Resize((224, 224)),
                                             transforms.ToTensor(),
                                             transforms.Normalize((0.5,), (0.5,))])
 
-    img_transformed = Dataset(pd.DataFrame(), "", image_transforms, img)
-    load_data_train = LoadData(img_transformed, "", "test")
-    data_loader = load_data_train.get_data_loader()
+    img_transformed = image_transforms(img)
+    img.close()
 
-    with torch.no_grad():
-        for input, _ in tqdm.tqdm(data_loader):
-            input = input.to(device)
-            output = model(input)
-            embedding = output.cpu().detach().numpy()
+    # Transforming image to required format, and passing through the model.
+    img_transformed = img_transformed.reshape(1, 3, 224, 224)
+    embedding = model(img_transformed.to(device))
 
-    # Returning the embedding as a 1D numpy vector
-    return embedding.flatten()
+    # Saving the embedding as a 1D numpy array.
+    embedding = embedding.cpu().detach().numpy()
+    embedding = embedding.reshape(512,)
+    return embedding
 
 
 def similar_images_finder(img_embedding, all_embeddings, file_paths):
