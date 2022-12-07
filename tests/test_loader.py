@@ -6,8 +6,8 @@ import random
 import pandas as pd
 import torchvision
 from torchvision import transforms
-from train import create_datasets
-from train import create_dataloaders
+from similar_image_finder.train import create_datasets
+from similar_image_finder.train import create_dataloaders
 
 class TestLoader(unittest.TestCase):
     """Class to test Data Loader and Dataset modules.
