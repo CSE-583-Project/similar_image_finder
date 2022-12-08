@@ -20,10 +20,9 @@ A similar image finder tool for customers who wish to find products similar to o
 │   ├── data_loader
 │   ├── gui_module
 │   ├── model
-│   └── inference.py
+│   ├── tests
 │   ├── train.py
-├── tests
-│   ├── test_loader.py
+│   └── inference.py
 ├── LICENSE
 ├── README.md
 └── environment.yml
