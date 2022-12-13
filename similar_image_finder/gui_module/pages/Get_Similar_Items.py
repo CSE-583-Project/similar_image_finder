@@ -23,13 +23,13 @@ image_file = st.file_uploader("Upload Images", type=["png","jpg","jpeg"])
 
 if image_file is not None:
 
-    # To See details
     file_details = {"filename":image_file.name, "filetype":image_file.type,
                     "filesize":image_file.size}
     st.write(file_details)
-    # To View Uploaded Image
     loaded_image = load_image(image_file)
     file = st.image(loaded_image,width=250)
     save_uploadedfile(image_file)
-    inference.similar_images_finder(Image.open(r'gui_module/tempDir/unploadedFile.jpeg'))
+    absolute_path = os.path.abspath(__file__)
+    rel_path = "/../tempDir/uploadedFile.jpeg"
+    inference.similar_images_finder(Image.open(os.path.dirname(absolute_path)+rel_path))
 
