@@ -117,8 +117,8 @@ class ResNetModel():
                 #Calculate testing loss on model
                 optimizer.zero_grad()
                 output = self.resnet_model(input)
-        test_loss += nn.functional.cross_entropy(output, target).item()
-        correct += (torch.argmax(output, dim = 1) == target).type(torch.FloatTensor).sum().item()
+                test_loss += nn.functional.cross_entropy(output, target).item()
+                correct += (torch.argmax(output, dim = 1) == target).type(torch.FloatTensor).sum().item()
 
         test_loss /= len(test_loader)
         print(f'\nTest Loss: {test_loss:.4f}, \
