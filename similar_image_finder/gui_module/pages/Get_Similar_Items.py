@@ -11,7 +11,7 @@ def load_image(image_file):
     return img
 
 def save_uploadedfile(uploadedfile):
-     with open(os.path.join("tempDir", "uploadedFile.jpeg"),"wb") as f:
+     with open(os.path.join("./gui_module/tempDir", "uploadedFile.jpeg"),"wb") as f:
          f.write(uploadedfile.getbuffer())
      return st.success("Saved File:{} to tempDir".format(uploadedfile.name))
      
@@ -31,5 +31,5 @@ if image_file is not None:
     save_uploadedfile(image_file)
     absolute_path = os.path.abspath(__file__)
     rel_path = "/../tempDir/uploadedFile.jpeg"
-    inference.similar_images_finder(Image.open(os.path.dirname(absolute_path)+rel_path))
+    st.write(inference.similar_images_finder(Image.open(os.path.dirname(absolute_path)+rel_path)))
 

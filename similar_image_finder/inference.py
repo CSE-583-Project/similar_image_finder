@@ -7,19 +7,22 @@ import csv
 import torch
 from numpy import dot
 from numpy.linalg import norm
+import numpy as np
 import pandas as pd
 from torchvision import transforms
 from data_loader.loader import Dataset, LoadData
 from model.resnet_model import ResNetModel
+import os
 
 
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
 model = ResNetModel(31)
-model = model.load_state_dict('backbone.pt')
+print(os.getcwd())
+model = model.load_state_dict('./model/backbone.pt', torch.device('cpu'))
 
 
-def embeddings_loader(all_emb_path = 'all_embeddings.csv'):
+def embeddings_loader(all_emb_path = 'data/all_embeddings.csv'):
     """
     Loading the RESNET embeddings for all images from
     all_embeddings.csv.
@@ -32,9 +35,10 @@ def embeddings_loader(all_emb_path = 'all_embeddings.csv'):
     file_paths - File paths for corresponding embeddings.
     """
     data = []
-    with open(all_emb_path, 'r') as file:
-        csvreader = csv.reader(file)
-    for row in csvreader:
+    file = open(all_emb_path)
+    dict_csv = csv.reader(file)
+    #file.close()
+    for row in dict_csv:
         data.append(row)
 
     file_paths = []
@@ -82,10 +86,11 @@ def cosine_calc(img_embedding, all_embeddings, file_paths):
     selected_img_paths - Image paths for similar images in order.
     """
     cos_dists = []
-
     for curr_emb in all_embeddings:
+        curr_emb = curr_emb.strip('][').split(', ')
+        curr_emb = [float(x) for x in curr_emb]
         cos_sim = \
-        dot(curr_emb, img_embedding)/(norm(curr_emb)*norm(img_embedding))
+        dot(np.array(curr_emb), img_embedding)/(norm(np.array(curr_emb))*norm(img_embedding))
         cos_dists.append(cos_sim)
 
     distances = []
@@ -99,7 +104,7 @@ def cosine_calc(img_embedding, all_embeddings, file_paths):
     distances = sorted(distances,key=lambda l:l[0], reverse=True)
 
     selected_img_paths = []
-    for i in enumerate(10):
+    for i in range(10):
         selected_img_paths.append(distances[i][1])
 
     return selected_img_paths
