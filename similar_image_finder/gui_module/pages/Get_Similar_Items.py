@@ -11,9 +11,14 @@ def load_image(image_file):
     return img
 
 def save_uploadedfile(uploadedfile):
-     with open(os.path.join("./gui_module/tempDir", "uploadedFile.jpeg"),"wb") as f:
-         f.write(uploadedfile.getbuffer())
-     return st.success("Saved File:{} to tempDir".format(uploadedfile.name))
+    temp_dir = "tempDir"
+    curr_dir = "gui_module"
+    if not os.path.exists(os.path.join(curr_dir, temp_dir)):
+        os.mkdir(os.path.join(curr_dir, temp_dir))
+        
+    with open(os.path.join("./gui_module/tempDir", "uploadedFile.jpeg"),"wb") as f:
+        f.write(uploadedfile.getbuffer())
+    return st.success("Saved File:{} to tempDir".format(uploadedfile.name))
      
 st.title("Fetch Similar Items")
 st.sidebar.success("Select a page above.")

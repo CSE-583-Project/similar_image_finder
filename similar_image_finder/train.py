@@ -52,7 +52,8 @@ def create_datasets(data_frame, json_path, data_dir, train_transform = None, tra
     with open(json_path, encoding= "utf-8") as file:
         json_data = json.load(file)
     train_df, inter_df = train_test_split(data_frame, train_size= json_data["train_split"])
-    val_df, test_df = train_test_split(inter_df, test_size=json_data["test_split"])
+    split_val_test = json_data["test_split"]/ (json_data["test_split"] + json_data["val_split"])
+    val_df, test_df = train_test_split(inter_df, test_size=split_val_test)
     train_dataset = Dataset(train_df, data_dir, transform= train_transform)
     val_dataset = Dataset(val_df, data_dir, transform= transform)
     test_dataset = Dataset(test_df, data_dir, transform= transform)
