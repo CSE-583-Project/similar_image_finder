@@ -8,7 +8,8 @@ dependencies:
   - pandas
   - pillow
   - pip
-  - pydrive
+  - pip:
+    - pydrive
   - pylint
   - python
   - pytorch
