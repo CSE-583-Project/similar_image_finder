@@ -93,3 +93,6 @@ ENV/
 
 #Ignore data folder
 data/
+
+#Ignore the Temp Dir
+tempDir/
