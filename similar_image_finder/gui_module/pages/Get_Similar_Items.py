@@ -11,14 +11,15 @@ import Constants
 import os
 import glob
 from PIL import Image
+import time
+
 
 def load_image(image_file):
     img = Image.open(image_file)
     return img
 
 def explore_images():
-    image_list = []
-    for filename in glob.glob("/gui_module/tempDir/"): #assuming gif
+    for filename in glob.glob("/gui_module/tempDir/*.jpg"): #assuming gif
         im=Image.open(filename)
         st.write(filename)
         st.image(im, use_column_width=True)
@@ -83,8 +84,12 @@ if image_file is not None:
     absolute_path = os.path.abspath(__file__)
     rel_path = "/../tempDir/uploadedFile.jpeg"
     list_files = inference.similar_images_finder(Image.open(os.path.dirname(absolute_path)+rel_path))[:5]
-    st.write(list_files[:5])
     clean_folder("gui_module/tempDir/*") 
     downloadFiles(list_files)
-    explore_images()
+    for filename in os.listdir("gui_module/tempDir"): #assuming gif
+        if filename.startswith("."):
+            continue
+        path = "gui_module/tempDir/{0}".format(filename)
+        im=Image.open(path)
+        st.image(im, width=250)
 
