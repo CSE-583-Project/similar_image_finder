@@ -18,8 +18,8 @@ class TestLoader(unittest.TestCase):
     def test_dataset_length_ds(self):
         """Test function to test the length of the dataset created.
         """
-        csv_file_path = "data/fashion.csv"
-        data_dir = "data"
+        csv_file_path = "tests/test_data/fashion_test.csv"
+        data_dir = "tests/test_data"
         json_path = "train_config.json"
 
         image_transforms = transforms.Compose([
@@ -44,8 +44,8 @@ class TestLoader(unittest.TestCase):
     def test_image_size_ds(self):
         """Test function to check the size of image in the dataset.
         """
-        csv_file_path = "data/fashion.csv"
-        data_dir = "data"
+        csv_file_path = "tests/test_data/fashion_test.csv"
+        data_dir = "tests/test_data"
         json_path = "train_config.json"
 
         image_transforms = transforms.Compose([
@@ -78,8 +78,8 @@ class TestLoader(unittest.TestCase):
     def test_num_classes_ds(self):
         """Test function to check the number of classes.
         """
-        csv_file_path = "data/fashion.csv"
-        data_dir = "data"
+        csv_file_path = "tests/test_data/fashion_test.csv"
+        data_dir = "tests/test_data"
         json_path = "train_config.json"
 
         image_transforms = transforms.Compose([
@@ -109,8 +109,8 @@ class TestLoader(unittest.TestCase):
     def test_dataloader_batchsize_dl(self):
         """Test function to check batch size of the data loader.
         """
-        csv_file_path = "data/fashion.csv"
-        data_dir = "data"
+        csv_file_path = "tests/test_data/fashion_test.csv"
+        data_dir = "tests/test_data"
         json_path = "train_config.json"
 
         image_transforms = transforms.Compose([

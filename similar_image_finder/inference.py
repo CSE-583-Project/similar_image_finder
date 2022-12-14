@@ -18,7 +18,6 @@ import os
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
 model = ResNetModel(31)
-print(os.getcwd())
 model = model.load_state_dict('./model/backbone.pt', torch.device('cpu'))
 
 
