@@ -90,7 +90,7 @@ def create_dataloaders(train_dataset, val_dataset, test_dataset, json_path):
 
 if __name__ == "__main__":
     # Add data paths
-    TRAIN_CONFIG_PATH = "similar_image_finder/train_config.json"
+    TRAIN_CONFIG_PATH = "train_config.json"
     CSV_FILE_PATH = "data/fashion.csv"
     DATA_DIR = "data"
 
