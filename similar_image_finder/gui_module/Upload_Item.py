@@ -22,9 +22,9 @@ def image_to_byte_array(image: Image) -> bytes:
   return imgByteArr
   
 def save_uploadedfile(uploadedfile):
-     with open(os.path.join("tempDir", "uploadedFile.jpeg"),"wb") as f:
-         f.write(uploadedfile.getbuffer())
-     return st.success("Saved File:{} to tempDir".format(uploadedfile.name))
+    with open(os.path.join("./gui_module/tempDir", "uploadedFile.jpeg"),"wb") as f:
+        f.write(uploadedfile.getbuffer())
+    return st.success("Saved File:{} to tempDir".format(uploadedfile.name))
      
 st.set_page_config(
     page_title="Multipage App",
@@ -73,12 +73,15 @@ elif clothingOption == 'Footwear':
         finalFolderId = Constants.FOOTWEAR_MEN_FOLDER_ID
     else:
         finalFolderId = Constants.FOOTWEAR_WOMEN_FOLDER_ID
+        
+file_name = st.text_input("Enter name of the item you want to post")
+
 submit = st.button("Submit")
 
 if submit:
     gauth = GoogleAuth()
     gauth.LocalWebserverAuth()
     drive = GoogleDrive(gauth)
-    gfile = drive.CreateFile({'parents': [{'id': finalFolderId}]})
-    gfile.SetContentFile('tempDir/uploadedFile.jpeg')
+    gfile = drive.CreateFile({'title':file_name + '.jpeg','parents': [{'id': finalFolderId}]})
+    gfile.SetContentFile('./gui_module/tempDir/uploadedFile.jpeg')
     gfile.Upload()
