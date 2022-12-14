@@ -8,14 +8,26 @@ from PIL import Image
 import os
 from pydrive.drive import GoogleDrive
 import Constants
+import os
+import glob
+from PIL import Image
 
 def load_image(image_file):
     img = Image.open(image_file)
     return img
 
+def explore_images():
+    image_list = []
+    for filename in glob.glob("/gui_module/tempDir/"): #assuming gif
+        im=Image.open(filename)
+        st.write(filename)
+        st.image(im, use_column_width=True)
+    
+
 def save_uploadedfile(uploadedfile):
     temp_dir = "tempDir"
     curr_dir = "gui_module"
+    clean_folder("gui_module/tempDir/*") 
     if not os.path.exists(os.path.join(curr_dir, temp_dir)):
         os.mkdir(os.path.join(curr_dir, temp_dir))
         
@@ -32,6 +44,11 @@ def getFolder(file):
         return Constants.FOOTWEAR_MEN_FOLDER_ID
     return Constants.APPAREL_BOYS_FOLDER_ID
 
+def clean_folder(path):
+    files = glob.glob(path)
+    for f in files:
+        os.remove(f)
+
 def downloadFiles(filter_list):
     gauth = GoogleAuth()
     gauth.LocalWebserverAuth()
@@ -39,26 +56,15 @@ def downloadFiles(filter_list):
 
     for file in filter_list:
         file_name = file.rsplit('/', 1)[-1]
-        st.write(type(file_name))
         folder = getFolder(file)
         file_list = drive.ListFile(
         {'q': "'{0}' in parents".format(folder)}).GetList() 
         for f in file_list:
             if f['title'] == file_name:
-                st.write(file_name)
-                st.write('title: %s, id: %s' % (f['title'], f['id']))
                 fname = f['title']
-                st.write('downloading to {}'.format(fname))
                 f_ = drive.CreateFile({'id': f['id']})
-                f_.GetContentFile(fname)
-
-    # for f in file_list:
-    #     if f['title'] in filtered_filenames:
-    #         st.write('title: %s, id: %s' % (f['title'], f['id']))
-    #         fname = f['title']
-    #         st.write('downloading to {}'.format(fname))
-    #         f_ = drive.CreateFile({'id': f['id']})
-    #         f_.GetContentFile(fname)
+                location = "./gui_module/tempDir/"
+                f_.GetContentFile(location+fname)
 
 st.title("Fetch Similar Items")
 st.sidebar.success("Select a page above.")
@@ -76,7 +82,9 @@ if image_file is not None:
     save_uploadedfile(image_file)
     absolute_path = os.path.abspath(__file__)
     rel_path = "/../tempDir/uploadedFile.jpeg"
-    list_files = inference.similar_images_finder(Image.open(os.path.dirname(absolute_path)+rel_path))
-    st.write(list_files)
+    list_files = inference.similar_images_finder(Image.open(os.path.dirname(absolute_path)+rel_path))[:5]
+    st.write(list_files[:5])
+    clean_folder("gui_module/tempDir/*") 
     downloadFiles(list_files)
+    explore_images()
 
