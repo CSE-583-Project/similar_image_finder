@@ -9,7 +9,7 @@ A similar image finder tool for customers who wish to find products similar to o
 2. Clone the repoistory using `git clone https://github.com/CSE-583-Project/similar_image_finder.git`.
 3. Change to the similar_image_finder directory using `cd similar_image_finder`.
 4. Set up a new virtual environment with all necessary packages and their dependencies using `conda env create -f environment.yml`.
-5. Activate the virtual environment with `conda activate env`.
+5. Activate the virtual environment with `conda activate cse583`.
 6. Deactivate the virtual environment using `conda deactivate`.
 
 ## Repository Structure
