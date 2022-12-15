@@ -19,6 +19,9 @@ A user can get similar image recommendation on this page. They simply have to up
 2. Install [PyDrive](https://pypi.org/project/PyDrive/) to access the database on GDrive
 3. Run the following command on terminal from the similar_image_finder directory: `streamlit run gui_module/merchant_upload_page.py`
 
+## Access to the Database
+In order to upload images or get similar images the user needs access to the database hosted on Google Cloud Platform. If you are a testing the GUI or want to use the service get yourself added to the list of verified users. Contact the developer to get added (![email](kb111198@uw.edu))
+
 ## Installation
 1. Open a terminal.
 2. Clone the repoistory using `git clone https://github.com/CSE-583-Project/similar_image_finder.git`.
