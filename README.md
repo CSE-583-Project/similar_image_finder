@@ -12,7 +12,7 @@ This page allows a Merchant to add an item to the database. In order to do this 
 A user can get similar image recommendation on this page. They simply have to upload an image and our custom trained Machine Learning model will compute similarity between the input image and the items already present in the database. A processing time of about 30 secs is expected to run the ML model on the input image.
 
 ## Example of using the GUI
-![video](https://github.com/CSE-583-Project/similar_image_finder/blob/main/doc/gui_demo.mp4)
+![video](https://drive.google.com/file/d/1Ibe0xpPgGh4VX2t6DpIOYOVwkD9DPRU7/view?usp=share_link)
  
 ## Using the GUI
 1. Install [Streamlit](https://docs.streamlit.io/library/get-started/installation) to run the GUI
