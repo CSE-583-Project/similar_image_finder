@@ -2,7 +2,23 @@
 
 A similar image finder tool for customers who wish to find products similar to one which they have an image of.
 
-## How to use the GUI
+## User Interface
+The GUI has tow pages for the Merchant/User:
+
+### Item Upload Page
+This page allows a Merchant to add an item to the database. In order to do this the Merchant must upload an image in .jpg/.png/.jpeg format and define the category the item should be added to. Currently there are only four categories based on item type and gender.
+
+### Similar Item Finder
+A user can get similar image recommendation on this page. They simply have to upload an image and our custom trained Machine Learning model will compute similarity between the input image and the items already present in the database. A processing time of about 30 secs is expected to run the ML model on the input image.
+
+## Example of using the GUI
+<video src='https://www.youtube.com/watch?v=XPiMd6PHYoc' width=180/>
+
+ 
+## Using the GUI
+1. Install [Streamlit](https://docs.streamlit.io/library/get-started/installation) to run the GUI
+2. Install [PyDrive](https://pypi.org/project/PyDrive/) to access the database on GDrive
+3. Run the following command on terminal from the similar_image_finder directory: `streamlit run gui_module/merchant_upload_page.py`
 
 ## Installation
 1. Open a terminal.
