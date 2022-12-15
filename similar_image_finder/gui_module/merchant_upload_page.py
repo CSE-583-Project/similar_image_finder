@@ -54,38 +54,40 @@ def main():
     st.sidebar.success("Select a page above.")
     if "my_input" not in st.session_state:
         st.session_state["my_input"] = ""
-    image_file = st.file_uploader("Upload Images", type=["png","jpg","jpeg"])
-    if image_file is not None:
-        # To See details
-        file_details = {"filename":image_file.name, "filetype":image_file.type,
-                        "filesize":image_file.size}
-        st.write(file_details)
-        # To View Uploaded Image
-        loaded_image = load_image(image_file)
-        st.image(loaded_image,width=250)
-        save_uploaded_file(image_file)
-    clothing_option = st.selectbox(
-        'What kind of clothing item is it?',
-        ('Apparel', 'Footwear'))
-    gdrive_folder_id = None
-    if clothing_option == 'Apparel':
-        apprel_gender_option = st.selectbox(
-            'What Category does it belong to?',
-            ('Boys', 'Girls'))
-        if apprel_gender_option == 'Boys':
-            gdrive_folder_id = Constants.APPAREL_BOYS_FOLDER_ID
-        else:
-            gdrive_folder_id = Constants.APPAREL_GIRLS_FOLDER_ID
-    elif clothing_option == 'Footwear':
-        footwear_gender_option = st.selectbox(
-            'What Category does it belong to?',
-            ('Men', 'Women'))
-        if footwear_gender_option == 'Men':
-            gdrive_folder_id = Constants.FOOTWEAR_MEN_FOLDER_ID
-        else:
-            gdrive_folder_id = Constants.FOOTWEAR_WOMEN_FOLDER_ID
-    file_name = st.text_input("Enter name of the item you want to post")
-    submit = st.button("Submit")
+    form = st.form("merch_upload", clear_on_submit = True)
+    with form:
+        image_file = st.file_uploader("Upload Images", type=["png","jpg","jpeg"])
+        if image_file is not None:
+            # To See details
+            file_details = {"filename":image_file.name, "filetype":image_file.type,
+                            "filesize":image_file.size}
+            st.write(file_details)
+            # To View Uploaded Image
+            loaded_image = load_image(image_file)
+            st.image(loaded_image,width=250)
+            save_uploaded_file(image_file)
+        clothing_option = st.selectbox(
+            'What kind of clothing item is it?',
+            ('Apparel', 'Footwear'))
+        gdrive_folder_id = None
+        if clothing_option == 'Apparel':
+            apprel_gender_option = st.selectbox(
+                'What Category does it belong to?',
+                ('Boys', 'Girls'))
+            if apprel_gender_option == 'Boys':
+                gdrive_folder_id = Constants.APPAREL_BOYS_FOLDER_ID
+            else:
+                gdrive_folder_id = Constants.APPAREL_GIRLS_FOLDER_ID
+        elif clothing_option == 'Footwear':
+            footwear_gender_option = st.selectbox(
+                'What Category does it belong to?',
+                ('Men', 'Women'))
+            if footwear_gender_option == 'Men':
+                gdrive_folder_id = Constants.FOOTWEAR_MEN_FOLDER_ID
+            else:
+                gdrive_folder_id = Constants.FOOTWEAR_WOMEN_FOLDER_ID
+        file_name = st.text_input("Enter name of the item you want to post")
+    submit = form.form_submit_button("Submit")
     if submit:
         gauth = GoogleAuth()
         gauth.LocalWebserverAuth()
