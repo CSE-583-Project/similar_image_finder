@@ -12,7 +12,7 @@ This page allows a Merchant to add an item to the database. In order to do this 
 A user can get similar image recommendation on this page. They simply have to upload an image and our custom trained Machine Learning model will compute similarity between the input image and the items already present in the database. A processing time of about 30 secs is expected to run the ML model on the input image.
 
 ## Example of using the GUI
-[![GUI Demo]()](https://www.youtube.com/watch?v=XPiMd6PHYoc)
+[GUI Demo](https://www.youtube.com/watch?v=XPiMd6PHYoc)
 
 ## Using the GUI
 1. Install [Streamlit](https://docs.streamlit.io/library/get-started/installation) to run the GUI
@@ -20,7 +20,7 @@ A user can get similar image recommendation on this page. They simply have to up
 3. Run the following command on terminal from the similar_image_finder directory: `streamlit run gui_module/merchant_upload_page.py`
 
 ## Access to the Database
-In order to upload images or get similar images the user needs access to the database hosted on Google Cloud Platform. If you are a testing the GUI or want to use the service get yourself added to the list of verified users. Contact the developer to get added (![email](kb111198@uw.edu))
+In order to upload images or get similar images the user needs access to the database hosted on Google Cloud Platform. If you are a testing the GUI or want to use the service get yourself added to the list of verified users. Contact the developer to get added ([email](kb111198@uw.edu))
 
 ## Installation
 1. Open a terminal.
