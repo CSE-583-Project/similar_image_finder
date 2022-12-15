@@ -8,8 +8,8 @@ import torchvision
 from torchvision import transforms
 from train import create_datasets
 from train import create_dataloaders
-# from similar_image_finder.inference import embeddings_loader, embedding_finder
-# from similar_image_finder.inference import cosine_calc, similar_images_finder
+from inference import embeddings_loader, embedding_finder
+from inference import cosine_calc, similar_images_finder
 
 
 class TestLoader(unittest.TestCase):
@@ -146,3 +146,38 @@ class TestLoader(unittest.TestCase):
         self.assertEqual(json_data["val_batch_size"], val_images.size()[0])
         test_images, _, _ = next(iter(test_loader))
         self.assertEqual(json_data["test_batch_size"], test_images.size()[0])
+
+    def img_cos_finder_test(self):
+        """Test function to test if cosine distance calculation results 
+        in correct calculation of scores.
+        """
+        img_embedding = [0.5, 0.6, 0.5, 0.7]
+        all_embeddings = ['[0.7, 0.1, 0.9, 0.1]',
+                        '[0.4, 0.6, 0.2, 0.7]',
+                        '[0.5, 3.6, 0.1, 1.7]',
+                        '[0.5, 2.6, 0.5, 0.7]',
+                        '[0.5, 0.6, 0.1, 0.9]',
+                        '[0.3, 0.6, 0.5, 1.7]',
+                        '[0.3, 0.4, 0.5, 0.6]',
+                        '[0.3, 0.4, 1.5, 0.5]',
+                        '[0.5, 0.1, 0.6, 0.4]',
+                        '[0.5, 0.4, 0.6, 0.9]',
+                        '[0.1, 0.6, 2.7, 1.2]',
+                        '[1.1, 0.6, 0.8, 0.4]',
+                        '[0.5, 1.2, 0.8, 0.7]']
+        file_paths = ['1.jpg', '2.jpg', '3.jpg', '4.jpg', '5.jpg', '6.jpg', '7.jpg', '8.jpg',
+                        '9.jpg', '10.jpg', '11.jpg', '12.jpg', '13.jpg']
+
+        self.assertEqual(cosine_calc(img_embedding, all_embeddings, file_paths), [])
+
+    def all_emb_loader_test(self):
+        """Test if csv file containing all embeddings is loaded
+        with correct values and correct data types.
+        """
+        all_emb_path = 'tests_data/small_all_embeddings.csv'
+        embeddings, file_paths = embeddings_loader(all_emb_path)
+
+
+
+        
+
