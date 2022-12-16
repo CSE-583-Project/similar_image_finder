@@ -35,12 +35,15 @@ In order to upload images or get similar images the user needs access to the dat
 .
 ├── doc
 ├── similar_image_finder
+│   ├── data
 │   ├── data_loader
 │   ├── gui_module
 │   ├── model
 │   ├── tests
+│   ├── train_config.json
 │   ├── train.py
-│   └── inference.py
+│   ├── inference.py
+│   └── setup.py
 ├── LICENSE
 ├── README.md
 └── environment.yml
